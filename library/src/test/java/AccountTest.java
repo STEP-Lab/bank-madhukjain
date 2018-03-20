@@ -1,6 +1,6 @@
 import com.thoughtworks.bank.Account;
-import com.thoughtworks.bank.invalidAmountError;
-import com.thoughtworks.bank.minimumBalanceError;
+import com.thoughtworks.bank.InvalidAmountError;
+import com.thoughtworks.bank.MinimumBalanceError;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,25 +11,40 @@ public class AccountTest {
     private Account account;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         account = new Account("1234", 1000.00);
     }
 
     @Test
-    public void checkBalance() {
-        assertEquals(account.getBalance(), 1000.00);
+    public void shouldReturnAvailableBalance() {
+        assertEquals(account.getBalance(),1000.00);
     }
 
     @Test
-    public void addAmount() throws invalidAmountError {
+    public void shouldAddGivenAmountToAccount() throws InvalidAmountError {
         account.credit(10000.00);
         assertEquals(account.getBalance(),11000.00);
     }
 
     @Test
-    public void withdrawAmount() throws invalidAmountError, minimumBalanceError {
+    public void shouldWithdrawAmount() throws InvalidAmountError, MinimumBalanceError {
         account.credit(10000.00);
         account.debit(5000.00);
         assertEquals(account.getBalance(),6000,0);
+    }
+
+    @Test(expected = InvalidAmountError.class)
+    public void shouldReturnInvalidAmountErrorForCredit() throws InvalidAmountError {
+        account.credit(-10000.00);
+    }
+
+    @Test(expected = InvalidAmountError.class)
+    public void shouldReturnInvalidAmountErrorForDebit() throws InvalidAmountError, MinimumBalanceError {
+        account.debit(-10000.00);
+    }
+
+    @Test(expected = MinimumBalanceError.class)
+    public void shouldReturnMinimumAmountError() throws InvalidAmountError, MinimumBalanceError {
+        account.debit(1100);
     }
 }

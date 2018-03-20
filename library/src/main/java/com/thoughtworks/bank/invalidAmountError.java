@@ -1,7 +1,7 @@
 package com.thoughtworks.bank;
 
-public class invalidAmountError extends Throwable {
-    public invalidAmountError() {
+public class InvalidAmountError extends Throwable {
+    public InvalidAmountError() {
         super("Entered amount is invalid");
     }
 }

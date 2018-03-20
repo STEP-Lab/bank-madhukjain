@@ -13,20 +13,14 @@ public class Account {
         return balance;
     }
 
-    public void credit(double amount) throws invalidAmountError {
-        if(amount<0){
-            throw new invalidAmountError();
-        }
+    public void credit(double amount) throws InvalidAmountError {
+        if(amount<0) throw new InvalidAmountError();
         balance += amount;
     }
 
-    public void debit(double amount) throws invalidAmountError, minimumBalanceError {
-        if((balance-amount)<1000){
-            throw new minimumBalanceError();
-        }
-        if(amount < 0){
-            throw new invalidAmountError();
-        }
+    public void debit(double amount) throws InvalidAmountError, MinimumBalanceError {
+        if((balance-amount)<=1000) throw new MinimumBalanceError();
+        if(amount < 0) throw new InvalidAmountError();
         balance -= amount;
     }
 }

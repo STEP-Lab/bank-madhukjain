@@ -2,7 +2,7 @@ package com.thoughtworks.bank;
 
 
 public class Application{
-    public static void main(String[] args) throws invalidAmountError, minimumBalanceError {
+    public static void main(String[] args) throws InvalidAmountError, MinimumBalanceError {
         Account account = new Account("1234-4344",1000.00);
         System.out.println(account.getBalance());
         account.credit(10000);

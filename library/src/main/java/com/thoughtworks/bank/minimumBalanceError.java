@@ -1,7 +1,7 @@
 package com.thoughtworks.bank;
 
-public class minimumBalanceError extends Throwable {
-    public minimumBalanceError(){
+public class MinimumBalanceError extends Throwable {
+    public MinimumBalanceError(){
         super("Insufficient balance");
     }
 }
