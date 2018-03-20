@@ -24,4 +24,10 @@ public class AccountTest {
         assertEquals(account.getBalance(),10100.00);
     }
 
+    @Test
+    public void withdrawAmount(){
+        account.credit(10000.00);
+        account.debit(5000);
+        assertEquals(account.getBalance(),5100.00);
+    }
 }

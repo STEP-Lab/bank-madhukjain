@@ -7,5 +7,7 @@ public class Application{
         System.out.println(account.getBalance());
         account.credit(10000);
         System.out.println(account.getBalance());
+        account.debit(5000);
+        System.out.println(account.getBalance());
     }
 }

@@ -17,4 +17,7 @@ public class Account {
         balance += amount;
     }
 
+    public void debit(double amount) {
+        balance -= amount;
+    }
 }
