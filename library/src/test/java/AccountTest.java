@@ -1,4 +1,6 @@
 import com.thoughtworks.bank.Account;
+import com.thoughtworks.bank.invalidAmountError;
+import com.thoughtworks.bank.minimumBalanceError;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,24 +12,24 @@ public class AccountTest {
 
     @Before
     public void setUp() throws Exception {
-        account = new Account("1234", 100.00);
+        account = new Account("1234", 1000.00);
     }
 
     @Test
     public void checkBalance() {
-        assertEquals(account.getBalance(), 100.00);
+        assertEquals(account.getBalance(), 1000.00);
     }
 
     @Test
-    public void addAmount(){
+    public void addAmount() throws invalidAmountError {
         account.credit(10000.00);
-        assertEquals(account.getBalance(),10100.00);
+        assertEquals(account.getBalance(),11000.00);
     }
 
     @Test
-    public void withdrawAmount(){
+    public void withdrawAmount() throws invalidAmountError, minimumBalanceError {
         account.credit(10000.00);
-        account.debit(5000);
-        assertEquals(account.getBalance(),5100.00);
+        account.debit(5000.00);
+        assertEquals(account.getBalance(),6000,0);
     }
 }
