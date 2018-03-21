@@ -4,8 +4,9 @@ public class Account {
     private final String accountNumber;
     private double balance;
 
-    public Account(String accountNumber, double balance) {
-        this.accountNumber = accountNumber;
+    public Account(String accNumber, double balance) throws InvalidAccountNumberError {
+        checkAccountNumber(accNumber);
+        this.accountNumber = accNumber;
         this.balance = balance;
     }
 
@@ -22,5 +23,11 @@ public class Account {
         if((balance-amount)<=1000) throw new MinimumBalanceError();
         if(amount < 0) throw new InvalidAmountError();
         balance -= amount;
+    }
+
+    public static void checkAccountNumber(String givenAccountNumber) throws InvalidAccountNumberError {
+        if(!givenAccountNumber.matches("[0-9]{4}-[0-9]{4}")){
+            throw new InvalidAccountNumberError();
+        }
     }
 }

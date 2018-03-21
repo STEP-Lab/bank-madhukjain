@@ -1,4 +1,5 @@
 import com.thoughtworks.bank.Account;
+import com.thoughtworks.bank.InvalidAccountNumberError;
 import com.thoughtworks.bank.InvalidAmountError;
 import com.thoughtworks.bank.MinimumBalanceError;
 import org.junit.Before;
@@ -11,8 +12,8 @@ public class AccountTest {
     private Account account;
 
     @Before
-    public void setUp() {
-        account = new Account("1234", 1000.00);
+    public void setUp() throws InvalidAccountNumberError {
+        account = new Account("1234-1234", 1000.00);
     }
 
     @Test
@@ -46,5 +47,10 @@ public class AccountTest {
     @Test(expected = MinimumBalanceError.class)
     public void shouldReturnMinimumAmountError() throws InvalidAmountError, MinimumBalanceError {
         account.debit(1100);
+    }
+
+    @Test(expected = InvalidAccountNumberError.class)
+    public void shouldCheckAccountNumber() throws InvalidAccountNumberError {
+        account = new Account("123-1234", 1000.00);
     }
 }
