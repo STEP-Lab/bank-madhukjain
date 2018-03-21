@@ -13,13 +13,12 @@ public class AccountTest {
 
     @Before
     public void setUp() throws InvalidAccountNumberError {
-        account = new Account("1234-1234", 1000.00);
+        account = new Account("Madhuri","1234-1234", 1000.00);
     }
 
     @Test
     public void shouldReturnAvailableBalance() {
-        assertEquals(account.getBalance(),1000.00);
-    }
+        assertEquals(account.getBalance(),1000.00); }
 
     @Test
     public void shouldAddGivenAmountToAccount() throws InvalidAmountError {
@@ -51,6 +50,11 @@ public class AccountTest {
 
     @Test(expected = InvalidAccountNumberError.class)
     public void shouldCheckAccountNumber() throws InvalidAccountNumberError {
-        account = new Account("123-1234", 1000.00);
+        account = new Account("Madhuri","124-1234", 1000.00);
+    }
+
+    @Test
+    public void shouldReturnDetailsAboutAccount(){
+        assertEquals(account.getSummary(),"Name: Madhuri\nAccount Number: 1234-1234\nBalance: 1000.0");
     }
 }
