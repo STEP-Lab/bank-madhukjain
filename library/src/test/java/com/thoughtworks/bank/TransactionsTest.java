@@ -13,4 +13,11 @@ public class TransactionsTest {
         transactions.credit(1000.00,"Madhuri");
         assertThat(transactions.getAllTransactions(),hasItem(new CreditTransaction(1000.00,"Madhuri")));
     }
+
+    @Test
+    public void shouldStoreAllDebitTransactions() {
+        Transactions transactions = new Transactions();
+        transactions.debit(1000.00,"Madhuri");
+        assertThat(transactions.getAllTransactions(),hasItem(new DebitTransaction(1000.00,"Madhuri")));
+    }
 }

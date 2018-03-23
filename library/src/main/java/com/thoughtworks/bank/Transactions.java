@@ -16,5 +16,9 @@ public class Transactions {
     public void credit(double amount, String name) {
         allTransactions.add(new CreditTransaction(amount,name));
     }
+
+    public void debit(double amount, String name) {
+        allTransactions.add(new DebitTransaction(amount,name));
+    }
 }
     
