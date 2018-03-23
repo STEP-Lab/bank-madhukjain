@@ -1,12 +1,11 @@
 package com.thoughtworks.bank;
 
 public class Account {
-    private final String accountNumber;
+    private final AccountNumber accountNumber;
     private double balance;
     private String name ;
 
-    public Account(String name, String accNumber, double balance) throws InvalidAccountNumberError {
-        checkAccountNumber(accNumber);
+    public Account(String name, AccountNumber accNumber, double balance) throws InvalidAccountNumberError {
         this.accountNumber = accNumber;
         this.balance = balance;
         this.name = name;
@@ -27,13 +26,7 @@ public class Account {
         balance -= amount;
     }
 
-    private void checkAccountNumber(String givenAccountNumber) throws InvalidAccountNumberError {
-        if(!givenAccountNumber.matches("[0-9]{4}-[0-9]{4}")){
-            throw new InvalidAccountNumberError();
-        }
-    }
-
     public String getSummary() {
-        return "Name: "+ name +"\nAccount Number: "+accountNumber+"\nBalance: "+balance;
+        return "Name: "+ name +"\nAccount Number: "+accountNumber.getAccountNumber()+"\nBalance: "+balance;
     }
 }
