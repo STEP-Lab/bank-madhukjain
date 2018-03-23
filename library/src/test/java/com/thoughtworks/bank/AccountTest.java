@@ -1,4 +1,5 @@
-import com.thoughtworks.bank.*;
+package com.thoughtworks.bank;
+
 import org.junit.Before;
 import org.junit.Test;
 

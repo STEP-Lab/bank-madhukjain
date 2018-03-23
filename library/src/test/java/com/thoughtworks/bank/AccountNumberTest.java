@@ -1,7 +1,6 @@
-import com.thoughtworks.bank.AccountNumber;
-import com.thoughtworks.bank.InvalidAccountNumberError;
-import org.junit.Test;
+package com.thoughtworks.bank;
 
+import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
