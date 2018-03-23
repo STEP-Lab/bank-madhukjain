@@ -16,4 +16,12 @@ public class Transaction {
     public double getAmount() {
         return amount;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

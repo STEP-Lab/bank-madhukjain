@@ -4,8 +4,11 @@ import java.util.Date;
 
 public class DebitTransaction extends Transaction {
 
-    public DebitTransaction(double amount, Date date, String name) {
+    protected DebitTransaction(double amount, Date date, String name) {
         super(amount,date,name);
+    }
+    public DebitTransaction(double amount,String name){
+        this(amount,new Date(),name);
     }
 
 }
