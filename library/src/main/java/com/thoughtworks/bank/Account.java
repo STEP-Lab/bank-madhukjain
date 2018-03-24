@@ -8,7 +8,7 @@ public class Account {
     private double balance;
     private String name ;
 
-    public Account(String name, AccountNumber accNumber, double balance) throws InvalidAccountNumberError {
+    public Account(String name, AccountNumber accNumber, double balance) {
         this.accountNumber = accNumber;
         this.balance = balance;
         this.name = name;
