@@ -66,4 +66,13 @@ public class TransactionsTest {
         assertThat(transactionsWithAmountMoreThan.getAllTransactions(),hasItem(debitTransaction));
     }
 
+    @Test(expected = InvalidAmountException.class)
+    public void shouldThrowExceptionForRequestOfInvalidAmount() throws InvalidAmountException {
+        Transactions transactions = new Transactions();
+        transactions.credit(1500.00,"Mayuri");
+        transactions.debit(2000.00,"Mayuri");
+        transactions.credit(2500.00,"Mayuri");
+        transactions.debit(2300.00,"Mayuri");
+        getBalance(-1800);
+    }
 }
