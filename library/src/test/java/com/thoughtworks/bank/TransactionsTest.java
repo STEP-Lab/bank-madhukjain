@@ -54,7 +54,7 @@ public class TransactionsTest {
     }
 
     @Test
-    public void shouldReturnAllTransactionHavingAmountMoreThanGivenAmount() throws InvalidAmountException {
+    public void shouldReturnTransactionHavingAmountMoreThanGivenThreshold() throws InvalidAmountException {
         Transactions transactions = new Transactions();
         transactions.credit(1500.00,"Mayuri");
         transactions.debit(2000.00,"Mayuri");
@@ -74,5 +74,17 @@ public class TransactionsTest {
         transactions.credit(2500.00,"Mayuri");
         transactions.debit(2300.00,"Mayuri");
         getBalance(-1800);
+    }
+
+    @Test
+    public void shouldReturnTransactionsHavingAmountLessThanGivenThreshold() throws InvalidAmountException {
+        Transactions transactions = new Transactions();
+        transactions.credit(1000.00,"Madhuri");
+        transactions.debit(1500.00,"Madhuri");
+        transactions.credit(1300.00,"Madhuri");
+        Balance balance = getBalance(1500);
+        Transactions transactionsWithAmountLessThan = transactions.getTransactionsWithAmountLessThan(balance);
+        CreditTransaction creditTransaction = new CreditTransaction(1000.00, "Madhuri");
+        assertThat(transactionsWithAmountLessThan.getAllTransactions(),hasItem(creditTransaction));
     }
 }

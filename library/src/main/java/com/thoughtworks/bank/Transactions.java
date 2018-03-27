@@ -51,5 +51,16 @@ public class Transactions {
         }
         return transactions;
     }
+
+    public Transactions getTransactionsWithAmountLessThan(Balance balance) {
+        double amount = balance.getAmount();
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(amount > transaction.getAmount()){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
 }
     
