@@ -2,6 +2,7 @@ package com.thoughtworks.bank;
 
 import org.junit.Test;
 
+import static com.thoughtworks.bank.Balance.getBalance;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
 
@@ -51,4 +52,18 @@ public class TransactionsTest {
         Transactions debitTransactions = transactions.getAllDebitTransactions();
         assertThat(debitTransactions.getAllTransactions(),hasItem(debitTransaction));
     }
+
+    @Test
+    public void shouldReturnAllTransactionHavingAmountMoreThanGivenAmount() throws InvalidAmountException {
+        Transactions transactions = new Transactions();
+        transactions.credit(1500.00,"Mayuri");
+        transactions.debit(2000.00,"Mayuri");
+        transactions.credit(2500.00,"Mayuri");
+        transactions.debit(2300.00,"Mayuri");
+        Balance balance = getBalance(1800);
+        Transactions transactionsWithAmountMoreThan = transactions.getTransactionsWithAmountMoreThan(balance);
+        DebitTransaction debitTransaction = new DebitTransaction(2000.00, "Mayuri");
+        assertThat(transactionsWithAmountMoreThan.getAllTransactions(),hasItem(debitTransaction));
+    }
+
 }
