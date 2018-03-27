@@ -1,6 +1,7 @@
 package com.thoughtworks.bank;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Transactions {
     private final ArrayList<Transaction> allTransactions;
@@ -11,6 +12,14 @@ public class Transactions {
 
     public ArrayList<Transaction> getAllTransactions() {
         return allTransactions;
+    }
+
+    protected void credit(Date date, double amount, String name) {
+        allTransactions.add(new CreditTransaction(amount,date,name));
+    }
+
+    protected void debit(Date date, double amount, String name) {
+        allTransactions.add(new DebitTransaction(amount,date,name));
     }
 
     public void credit(double amount, String name) {
@@ -57,6 +66,17 @@ public class Transactions {
         Transactions transactions = new Transactions();
         for(Transaction transaction : allTransactions){
             if(amount > transaction.getAmount()){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
+
+
+    public Transactions getTransactionsDoneOnGivenDate(Date date) {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction.getDate().equals(date)){
                 transactions.allTransactions.add(transaction);
             }
         }

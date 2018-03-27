@@ -2,6 +2,10 @@ package com.thoughtworks.bank;
 
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.thoughtworks.bank.Balance.getBalance;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
@@ -86,5 +90,17 @@ public class TransactionsTest {
         Transactions transactionsWithAmountLessThan = transactions.getTransactionsWithAmountLessThan(balance);
         CreditTransaction creditTransaction = new CreditTransaction(1000.00, "Madhuri");
         assertThat(transactionsWithAmountLessThan.getAllTransactions(),hasItem(creditTransaction));
+    }
+
+    @Test
+    public void shouldReturnTransactionsDoneOnGivenDate() throws ParseException {
+        Transactions transactions = new Transactions();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = dateFormat.parse("30-12-2018");
+        transactions.credit(date,1000.00,"Madhuri");
+        transactions.debit(date,1500.00,"Madhuri");
+        Transactions transactionsDoneOnGivenDate = transactions.getTransactionsDoneOnGivenDate(date);
+        CreditTransaction creditTransaction = new CreditTransaction(1000.00, date, "Madhuri");
+        assertThat(transactionsDoneOnGivenDate.getAllTransactions(),hasItem(creditTransaction));
     }
 }
