@@ -82,5 +82,15 @@ public class Transactions {
         }
         return transactions;
     }
+
+    public Transactions getTransactionsDoneBeforeGivenDate(Date date) {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction.getDate().before(date)){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
 }
     
