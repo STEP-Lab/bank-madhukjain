@@ -110,11 +110,25 @@ public class TransactionsTest {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date prevDate = dateFormat.parse("30-12-2017");
-        Date upcomingDate = dateFormat.parse("30-12-2017");
+        Date upcomingDate = dateFormat.parse("30-12-2019");
         transactions.credit(prevDate,1000.00,"Madhuri");
         transactions.debit(upcomingDate,1500.00,"Madhuri");
         Transactions transactionsDoneBeforeGivenDate = transactions.getTransactionsDoneBeforeGivenDate(date);
         CreditTransaction creditTransaction = new CreditTransaction(1000.00, prevDate, "Madhuri");
         assertThat(transactionsDoneBeforeGivenDate.getAllTransactions(),hasItem(creditTransaction));
+    }
+
+    @Test
+    public void shouldReturnTransactionsDoneAfterGivenDate() throws ParseException {
+        Transactions transactions = new Transactions();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        Date beforeDate = dateFormat.parse("30-12-2017");
+        Date afterDate = dateFormat.parse("30-12-2019");
+        transactions.credit(beforeDate,1000.00,"Madhuri");
+        transactions.debit(afterDate,1500.00,"Madhuri");
+        Transactions transactionsDoneBeforeGivenDate = transactions.getTransactionsDoneAfterGivenDate(date);
+        DebitTransaction debitTransaction = new DebitTransaction(1500.00, afterDate, "Madhuri");
+        assertThat(transactionsDoneBeforeGivenDate.getAllTransactions(),hasItem(debitTransaction));
     }
 }

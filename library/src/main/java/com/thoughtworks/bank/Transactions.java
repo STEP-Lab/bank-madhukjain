@@ -92,5 +92,15 @@ public class Transactions {
         }
         return transactions;
     }
+
+    public Transactions getTransactionsDoneAfterGivenDate(Date date) {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction.getDate().after(date)){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
 }
     
