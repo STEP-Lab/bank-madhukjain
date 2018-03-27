@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Transactions {
     private final ArrayList<Transaction> allTransactions;
+    private Transactions transactions;
 
     public Transactions() {
         this.allTransactions = new ArrayList<>();
@@ -30,5 +31,16 @@ public class Transactions {
         }
         return transactions;
     }
+
+    public Transactions getAllDebitTransactions() {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction instanceof DebitTransaction){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
+
 }
     

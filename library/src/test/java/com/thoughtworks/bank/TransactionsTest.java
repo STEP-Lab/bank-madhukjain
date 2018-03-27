@@ -40,4 +40,15 @@ public class TransactionsTest {
         Transactions creditTransactions = transactions.getAllCreditTransactions();
         assertThat(creditTransactions.getAllTransactions(),hasItem(creditTransaction));
     }
+
+    @Test
+    public void shouldReturnAllDebitTransactions() {
+        Transactions transactions = new Transactions();
+        transactions.credit(20000.00,"Mayuri");
+        transactions.debit(1000.00,"Mayuri");
+        transactions.debit(1500.00,"Mayuri");
+        DebitTransaction debitTransaction = new DebitTransaction(1000.00, "Mayuri");
+        Transactions debitTransactions = transactions.getAllDebitTransactions();
+        assertThat(debitTransactions.getAllTransactions(),hasItem(debitTransaction));
+    }
 }
