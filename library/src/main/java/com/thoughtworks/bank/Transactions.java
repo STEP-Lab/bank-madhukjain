@@ -20,5 +20,15 @@ public class Transactions {
     public void debit(double amount, String name) {
         allTransactions.add(new DebitTransaction(amount,name));
     }
+
+    public Transactions getAllCreditTransactions() {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction instanceof CreditTransaction){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
 }
     
