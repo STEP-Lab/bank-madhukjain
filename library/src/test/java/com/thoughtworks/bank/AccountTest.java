@@ -3,6 +3,7 @@ package com.thoughtworks.bank;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.thoughtworks.bank.Balance.getBalance;
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
@@ -12,8 +13,9 @@ public class AccountTest {
     private Account account;
 
     @Before
-    public void setUp() throws InvalidAccountNumberError {
-        account = new Account("Madhuri",new AccountNumber("1234-1234"),1000.00);
+    public void setUp() throws InvalidAccountNumberError, InvalidAmountException {
+        Balance balance = getBalance(1000.00);
+        account = new Account("Madhuri",new AccountNumber("1234-1234"),balance);
     }
 
     @Test
@@ -55,8 +57,9 @@ public class AccountTest {
     }
 
     @Test(expected = InvalidAccountNumberError.class)
-    public void accountNumberShouldNotContainAlphabets() throws InvalidAccountNumberError {
-        account = new Account("Madhuri",new AccountNumber("12a4-1234"), 1000.00);
+    public void accountNumberShouldNotContainAlphabets() throws InvalidAccountNumberError, InvalidAmountException {
+        Balance balance = getBalance(1000.00);
+        account = new Account("Madhuri",new AccountNumber("12a4-1234"),balance);
     }
 
     @Test

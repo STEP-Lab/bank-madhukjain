@@ -8,9 +8,9 @@ public class Account {
     private double balance;
     private String name ;
 
-    public Account(String name, AccountNumber accNumber, double balance) {
+    public Account(String name, AccountNumber accNumber, Balance balance) {
         this.accountNumber = accNumber;
-        this.balance = balance;
+        this.balance = balance.getAmount();
         this.name = name;
         this.allTransactions = new Transactions();
     }
