@@ -102,5 +102,16 @@ public class Transactions {
         }
         return transactions;
     }
+
+    public Transactions getTransactionsInBetweenGivenDate(Date firstDate, Date lastDate) {
+        Transactions transactions = new Transactions();
+        for(Transaction transaction : allTransactions){
+            Date date = transaction.getDate();
+            if(date.before(lastDate) && date.after(firstDate)){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
 }
     

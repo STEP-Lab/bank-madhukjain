@@ -8,6 +8,7 @@ import java.util.Date;
 
 import static com.thoughtworks.bank.Balance.getBalance;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 public class TransactionsTest {
@@ -85,11 +86,12 @@ public class TransactionsTest {
         Transactions transactions = new Transactions();
         transactions.credit(1000.00,"Madhuri");
         transactions.debit(1500.00,"Madhuri");
-        transactions.credit(1300.00,"Madhuri");
+        transactions.credit(1300.00,"Mayuri");
         Balance balance = getBalance(1500);
         Transactions transactionsWithAmountLessThan = transactions.getTransactionsWithAmountLessThan(balance);
-        CreditTransaction creditTransaction = new CreditTransaction(1000.00, "Madhuri");
-        assertThat(transactionsWithAmountLessThan.getAllTransactions(),hasItem(creditTransaction));
+        CreditTransaction madhuriTransaction = new CreditTransaction(1000.00, "Madhuri");
+        CreditTransaction mayuriTransaction = new CreditTransaction(1300.00, "Mayuri");
+        assertThat(transactionsWithAmountLessThan.getAllTransactions(),hasItems(madhuriTransaction,mayuriTransaction));
     }
 
     @Test
@@ -130,5 +132,28 @@ public class TransactionsTest {
         Transactions transactionsDoneBeforeGivenDate = transactions.getTransactionsDoneAfterGivenDate(date);
         DebitTransaction debitTransaction = new DebitTransaction(1500.00, afterDate, "Madhuri");
         assertThat(transactionsDoneBeforeGivenDate.getAllTransactions(),hasItem(debitTransaction));
+    }
+
+    @Test
+    public void shouldReturnTransactionsInBetweenGivenDates() throws ParseException {
+        Transactions transactions = new Transactions();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date decSeventeen = dateFormat.parse("30-12-2017");
+        Date eightEighteen = dateFormat.parse("08-2-2018");
+        Date nineEighteen = dateFormat.parse("09-07-2018");
+        Date threeEighteen = dateFormat.parse("03-12-2018");
+        Date decEighteen = dateFormat.parse("30-12-2018");
+
+        transactions.credit(decSeventeen,1000.00,"Madhuri");
+        transactions.credit(eightEighteen,1000.00,"Madhuri");
+        transactions.debit(nineEighteen,1500.00,"Madhuri");
+        transactions.debit(threeEighteen,1500.00,"Mayuri");
+        transactions.debit(decEighteen,1500.00,"Madhuri");
+
+        Transactions transactionsInBetweenGivenDate = transactions.getTransactionsInBetweenGivenDate(decSeventeen, decEighteen);
+        CreditTransaction madhuriCredit = new CreditTransaction(1000.00, eightEighteen, "Madhuri");
+        DebitTransaction madhuriDebit = new DebitTransaction(1500.00, nineEighteen, "Madhuri");
+        DebitTransaction mayuriDebit = new DebitTransaction(1500.00, threeEighteen, "Madhuri");
+        assertThat(transactionsInBetweenGivenDate.getAllTransactions(),hasItems(madhuriCredit,madhuriDebit,mayuriDebit));
     }
 }
